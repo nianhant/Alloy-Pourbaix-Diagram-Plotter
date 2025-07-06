@@ -16,4 +16,6 @@ mu_ligand = {'NH3': -0.276037, 'Gly': -3.263014109, 'CN': 1.786800089}
 # metal_list = ['Au']  # Modify as needed
 metal_1 = 'Ti'
 metal_list = ['Ni']
+metal_list = ['Cu']
+
 process_alloys(metal_1, metal_list, CN_list, T_list, activity_list, mu_ligand, save_fig=True)

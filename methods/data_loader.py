@@ -12,6 +12,7 @@ class SpeciesDataLoader:
 
         # Load all data
         self.metal_complex_df = self.load_metal_complex_data()
+        self.metal_complex_df = self.metal_complex_df[self.metal_complex_df["ligand"] != "NO2[1-]"]
         self.metal_complex_df['del_G_eV_vary_T'] = self.metal_complex_df.apply(self.calculate_G, axis=1)
 
         # Since Pd and Pt's complexes have controversial stability constants
