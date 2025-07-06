@@ -23,7 +23,6 @@ class Species:
         self.alloy = False
         if self.phase == 'complex':
             self.composition, self.ligand = self.parse_complex_composition()
-#             self.activity = ligand_concentration[self.formula]
         else:
             self.composition = self.parse_composition()
         self.mass_balance = self.compute_mass_balance()
@@ -655,7 +654,7 @@ def generate_legends(ax, all_species_tuples_global, species_colors, plot_accesso
 
     ax.add_artist(accessory_legend)
 
-def process_alloys(metal_1, metal_list, CN_list, T_list, activity_list, mu_ligand, process_alloys=True, save_fig=True):
+def process_alloys(metal_1, metal_list, CN_list, T_list, activity_list, mu_ligand, save_fig=True):
     for metal_2 in metal_list: 
         for T in T_list:
             species_data = SpeciesDataLoader(metal_1, metal_2, mu_ligand, T)
@@ -713,5 +712,5 @@ pH_exp_range, V_exp_range = (11.5, 13.5), (-2, 2.3)
 mu_ligand = {'NH3': -0.276037, 'Gly': -3.263014109, 'CN': 1.786800089}
 
 # --- Run Processing ---
-process_alloys(metal_1, metal_list, CN_list, T_list, activity_list, mu_ligand,process_alloys=True, save_fig=True)
+process_alloys(metal_1, metal_list, CN_list, T_list, activity_list, mu_ligand, save_fig=True)
 
