@@ -5,6 +5,7 @@ import colorsys
 import numpy as np
 import re
 import os
+from ase.formula import Formula
 
 
 
@@ -138,8 +139,18 @@ class PlotAccessories:
         return species_colors
     
     def format_formula(self, formula):
-        formatted_formula = re.sub(r"([A-Za-z\(\)])([\d\+\-\.]+)", r"\1$_{\2}$", formula)
-        formatted_formula = re.sub(r"\[([\d\+\-]+)\]", r"$^{\1}$", formatted_formula)
+        if '[' in formula or 'aq' in formula or 'Gly' in formula:
+            formatted_formula = re.sub(r"([A-Za-z\)\]])(\d+)", r"\1$_{\2}$", formula)
+            formatted_formula = re.sub(r"\[([\d\+\-]+)\]", r"$^{\1}$", formatted_formula)
+
+            formatted_formula = re.sub(r"\$_\{1\}\$", "", formatted_formula)
+            formatted_formula = re.sub(r"\^\{1([+-])\}", r"^{\1}", formatted_formula)
+
+        else:
+            formula_obj = Formula(formula)
+            reduced_formula = formula_obj.reduce()[0]
+            formatted_formula = f'{reduced_formula:latex}'    
+        
         return formatted_formula
 
     def format_species_combo(self, combo_tuple):

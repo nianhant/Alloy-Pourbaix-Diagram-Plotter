@@ -6,8 +6,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from methods.runner import process_alloys
 
-# CN_list = [0]
-CN_list = [0.0001]
+CN_list = [0, 0.0001]
+# CN_list = [0.0001]
 
 T_list = [298.15]
 activity_list = [1e-4]
