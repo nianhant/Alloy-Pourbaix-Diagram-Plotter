@@ -72,7 +72,7 @@ class GridVisualizer:
         )
         return file_name
 
-    def plot_species_distribution(self, species_grid, species_colors, ax=None, fontsize=18, save_fig=True):
+    def plot_species_distribution(self, species_grid, species_colors, ax=None, save_fig=True):
         """Plots the Pourbaix diagram using species distribution data."""
         converted_species_grid = [
             tuple(sorted(f"{species.formula}_{species.phase}_{species.alloy}" for species in species_tuple))
@@ -89,8 +89,8 @@ class GridVisualizer:
         ax.scatter(self.grid_maker.pH_grid.flatten(), self.grid_maker.V_grid.flatten(), 
                    c=color_values, s=1, alpha=0.75)
         
-        ax.set_xlabel('pH', fontsize=fontsize)
-        ax.set_ylabel(r'$E_{SHE}(V)$', fontsize=fontsize)
+        ax.set_xlabel('pH')
+        ax.set_ylabel(r'$E_{SHE}(V)$')
         self.add_H2_O2_lines(ax)
         self.add_plot_accessories(ax)
             
