@@ -10,19 +10,26 @@ from .utils import parse_composition, format_comp_dict
 from .plot_util import generate_legends
 from .set_publication_style import set_publication_style
 
-def process_alloys(metal_1, metal_list, CN_list, T_list, activity_list, mu_ligand, pH_exp_range=(11.5, 13.5), V_exp_range=(-2, 2.3), save_fig=True):
+
+import itertools as it
+
+
+def process_alloys(metal_list, CN_list, T_list, activity_list, mu_ligand, data_dir, pH_exp_range=(11.5, 13.5), V_exp_range=(-2, 2.3), save_fig=True):
     set_publication_style()
-    for metal_2 in metal_list: 
+    for metal_1, metal_2 in list(itertools.combinations(metal_list,2)):
+        print(metal_1, metal_2)
+    # for metal_2 in metal_list: 
         for T in T_list:
-            species_data = SpeciesDataLoader(metal_1, metal_2, mu_ligand, T)
+            species_data = SpeciesDataLoader(metal_1, metal_2, mu_ligand, T, data_dir = data_dir)
             prod_comp_dict = {
                 format_comp_dict(parse_composition(alloy)): Composition({
                     metal: count / sum(parse_composition(alloy).values())
                     for metal, count in parse_composition(alloy).items()
                 }) 
-                for alloy in species_data.solid_eng if len(parse_composition(alloy)) >= 2
+                for alloy in species_data.solid_eng if len(parse_composition(alloy)) >= 2 and 
+                all(count / sum(parse_composition(alloy).values()) == 0.5 for count in parse_composition(alloy).values())
             }
-
+            # print(prod_comp_dict)
             for reference_alloy, reference_composition in prod_comp_dict.items():
                 species_grid_list, all_species_tuples_global = [], set()
 
