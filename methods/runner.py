@@ -34,7 +34,8 @@ def process_alloys(metal_list, CN_list, T_list, activity_list, mu_ligand, data_d
                 species_grid_list, all_species_tuples_global = [], set()
 
                 for CN, activity in itertools.product(CN_list, activity_list):
-                    ligand_concentration = {'NH3': 0.02, 'Gly': 0.005, 'CN': CN}
+                    ligand_concentration = {'NH3': 0.0, 'Gly': 0.00, 'CN': 0}
+                    # ligand_concentration = {'NH3': 0.02, 'Gly': 0.005, 'CN': CN}
                     grid_maker = GridMaker((-2, 16), (-2, 3), ligand_concentration, 400)
                     pourbaix_data = PourbaixData(species_data, activity, ligand_concentration, reference_composition)
                     analyzer = PourbaixAnalyzer(pourbaix_data, grid_maker, T)
