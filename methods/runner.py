@@ -1,6 +1,8 @@
+
 from matplotlib import pyplot as plt
 import itertools
 from pymatgen.core import Composition
+from pathlib import Path
 
 from .data_loader import SpeciesDataLoader
 from .thermodynamics import PourbaixData, PourbaixAnalyzer
@@ -11,55 +13,45 @@ from .plot_util import generate_legends
 from .set_publication_style import set_publication_style
 
 
-import itertools as it
+set_publication_style()
 
 
-def process_alloys(metal_list, ligand_concentration_list, T_list, activity_list, mu_ligand, data_dir, outdir, pH_exp_range=(11.5, 13.5), V_exp_range=(-2, 2.3), save_fig=True):
-    set_publication_style()
-    for metal_1, metal_2 in list(itertools.combinations(metal_list,2)):
-        print(metal_1, metal_2)
-    # for metal_2 in metal_list: 
-        for T in T_list:
-            species_data = SpeciesDataLoader(metal_1, metal_2, mu_ligand, T, data_dir = data_dir)
-            prod_comp_dict = {
-                format_comp_dict(parse_composition(alloy)): Composition({
-                    metal: count / sum(parse_composition(alloy).values())
-                    for metal, count in parse_composition(alloy).items()
-                }) 
-                for alloy in species_data.solid_eng if len(parse_composition(alloy)) >= 2 and 
-                all(count / sum(parse_composition(alloy).values()) == 0.5 for count in parse_composition(alloy).values())
-            }
-            # print(prod_comp_dict)
-            for reference_alloy, reference_composition in prod_comp_dict.items():
-                species_grid_list, all_species_tuples_global = [], set()
+def plot_pourbaix(metal_1, metal_2, mu_ligand, T, activity, ligand_concentration, data_dir, pH_exp_range, V_exp_range, save_fig, outdir):
+    species_data = SpeciesDataLoader(metal_1, metal_2, mu_ligand, T, data_dir = data_dir)
+    prod_comp_dict = {
+    format_comp_dict(parse_composition(alloy)): Composition({
+        metal: count / sum(parse_composition(alloy).values())
+        for metal, count in parse_composition(alloy).items()
+    }) 
+    for alloy in species_data.solid_eng if len(parse_composition(alloy)) >= 2 and 
+    all(count / sum(parse_composition(alloy).values()) == 0.5 for count in parse_composition(alloy).values())
+    }
+    for reference_alloy, reference_composition in prod_comp_dict.items():
+        species_grid_list, all_species_tuples_global = [], set()
 
-                for ligand_concentration, activity in itertools.product(ligand_concentration_list, activity_list):
-                    
-                    grid_maker = GridMaker((-2, 16), (-2, 3), ligand_concentration, 400)
-                    pourbaix_data = PourbaixData(species_data, activity, ligand_concentration, reference_composition)
-                    analyzer = PourbaixAnalyzer(pourbaix_data, grid_maker, T)
+        grid_maker = GridMaker((-2, 16), (-2, 3), ligand_concentration, 400)
+        pourbaix_data = PourbaixData(species_data, activity, ligand_concentration, reference_composition)
+        analyzer = PourbaixAnalyzer(pourbaix_data, grid_maker, T)
 
-                    species_grid, all_species_tuples_set = analyzer.analyze_and_plot()
-                    species_grid_list.append((species_grid, CN, T, activity, reference_alloy))
-                    all_species_tuples_global.update(all_species_tuples_set)
+        species_grid, all_species_tuples_set = analyzer.analyze_and_plot()
+        all_species_tuples_global.update(all_species_tuples_set)
 
-                fig, ax = plt.subplots(figsize=(15, 8))
-                species_colors = PlotAccessories(species_data).get_color_for_label(all_species_tuples_global)
+        fig, ax = plt.subplots(figsize=(15, 8))
+        species_colors = PlotAccessories(species_data).get_color_for_label(all_species_tuples_global)
 
-                for species_grid, CN, T, activity, reference_alloy in species_grid_list:
-                    fig, ax = GridVisualizer(grid_maker, pourbaix_data).plot_species_distribution(
-                        species_grid, species_colors, ax=ax, save_fig=False)
+        fig, ax = GridVisualizer(grid_maker, pourbaix_data).plot_species_distribution(
+                            species_grid, species_colors, ax=ax, save_fig=False)
+        generate_legends(ax, all_species_tuples_global, species_colors, PlotAccessories(species_data), pH_exp_range, V_exp_range)
 
-                generate_legends(ax, all_species_tuples_global, species_colors, PlotAccessories(species_data), pH_exp_range, V_exp_range)
+        plt.tight_layout()
+        if save_fig:
+            file_name = GridVisualizer(grid_maker, pourbaix_data).format_file_name()
+            output_path = Path(outdir) / f"{metal_1}_{metal_2}"
+            output_path.mkdir(parents=True, exist_ok=True)
 
-                plt.tight_layout()
-                if save_fig:
-                    file_name = GridVisualizer(grid_maker, pourbaix_data).format_file_name()
-                    output_path = Path(outdir) / f"{metal_1}-{metal_2}"
-                    output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_file = output_path / f"{file_name}.png"
 
-                    output_file = outdir_path / f"{file_stem}.png"
+            print(file_name)
+            plt.savefig(output_file, bbox_inches='tight')
+        plt.close()
 
-                    print(file_name)
-                    plt.savefig(output_file, bbox_inches='tight')
-                plt.close()

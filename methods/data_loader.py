@@ -90,8 +90,8 @@ class SpeciesDataLoader:
             with open(ion_file, "r") as f:
                 ion_eng = json.load(f)
         else:
-            ion_eng = get_alloy_ion_formation_energy(self.metal_1, self.metal_2)
-            solid_eng = get_alloy_solid_formation_energy(self.metal_1, self.metal_2)
+            ion_eng = get_alloy_ion_formation_energy(self.data_dir, self.metal_1, self.metal_2)
+            solid_eng = get_alloy_solid_formation_energy(self.data_dir, self.metal_1, self.metal_2)
 
         
         return solid_eng, ion_eng
