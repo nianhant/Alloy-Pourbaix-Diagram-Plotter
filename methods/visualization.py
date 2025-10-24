@@ -62,15 +62,16 @@ class GridVisualizer:
         metal_list = "_".join(self.metal_list)
         
         reference_composition = self.species_data.reference_composition
-        directory = 'figures/alloy_pourbaix_diagrams'
         
         # Ensure directory exists
-        os.makedirs(directory, exist_ok=True)
+        # os.makedirs(outdir, exist_ok=True)
         
-        file_name = os.path.join(
-            directory,
-            f"{metal_list}_alloy_{reference_composition}_NH3={NH3}M_Gly={Gly}M_CN={CN}M_activity={activity:.0e}M.png"
-        )
+        # file_name = os.path.join(
+        #     outdir,
+        #     f"{metal_list}_alloy_{reference_composition}_NH3={NH3}M_Gly={Gly}M_CN={CN}M_activity={activity:.0e}M.png"
+        # )
+        file_name = f"{reference_composition}_NH3={NH3}M_Gly={Gly}M_CN={CN}M_activity={activity:.0e}M.png"
+        
         return file_name
 
     def plot_species_distribution(self, species_grid, species_colors, ax=None, save_fig=True):
