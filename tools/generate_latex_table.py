@@ -115,7 +115,9 @@ def generate_bulk_metal_latex_table(metal_tuple, outdir):
 Ni_Cu = ('Ni','Cu')
 Ni_Ti = ('Ni','Ti')
 Au_Pd = ('Au','Pd')
-metal_list = [Ni_Cu, Ni_Ti, Au_Pd]
+Ti_Cu = ('Ti','Cu')
+
+metal_list = [Ni_Cu, Ni_Ti, Au_Pd, Ti_Cu]
 metal_outdir = '/home/x-ntian/pourbaix_paper/Accelerated-Computational-Materials-Discovery-for-Electrochemical-Nutrient-Recovery/data/metal'
 # metal_outdir = "../data"
 for m in metal_list:

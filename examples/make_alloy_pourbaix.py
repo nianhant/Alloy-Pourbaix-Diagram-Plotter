@@ -21,8 +21,8 @@ set_publication_style()
 Ni_Cu = ('Ni','Cu')
 Ni_Ti = ('Ni','Ti')
 Au_Pd = ('Au','Pd')
-metal_list = [Ni_Cu, Ni_Ti, Au_Pd]
-
+Cu_Ti = ('Cu','Ti')
+metal_list = [Ni_Cu, Ni_Ti, Au_Pd, Cu_Ti]
 mu_ligand = {'NH3': -0.276037, 'Gly': -3.263014109, 'CN': 1.786800089}
 T = 298.15
 
@@ -30,12 +30,15 @@ activity_list = [1e-4, 1e-5, 1e-6]
 
 exp = {'NH3':0.02, 'NO2':0, 'Gly': 0.05, 'CN':0}
 with_CN =  {'NH3':0.02, 'NO2':0, 'Gly': 0.05, 'CN':1e-4}
-ligand_concentration_list = [exp, with_CN,
+aqueous_only = {'NH3': 0, 'NO2': 0, 'Gly': 0, 'CN': 0}
+
+ligand_concentration_list = [aqueous_only, exp, with_CN,
                              {'NH3':0.02, 'NO2':0, 'Gly': 0.005, 'CN':0},
                              {'NH3':0.02, 'NO2':0, 'Gly': 0.005, 'CN':1e-4},
+                             {'NH3':0, 'NO2':0, 'Gly': 0.1, 'CN':0},
                              {'NH3':0.02, 'NO2':0, 'Gly': 0.1, 'CN':0},
                              {'NH3':0.02, 'NO2':0, 'Gly': 0.1, 'CN':1e-4}]
-
+# ligand_concentration_list = [aqueous_only]
 data_dir = '../data'
 pH_exp_range=(11.5, 13.5)
 V_exp_range=(-2, 2.3)

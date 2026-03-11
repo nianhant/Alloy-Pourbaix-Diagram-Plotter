@@ -698,7 +698,7 @@ def process_alloys(metal_1, metal_list, CN_list, T_list, activity_list, mu_ligan
 metal_1 = 'Ti'
 metal_1 = 'Pd'
 metal_list = ['Ni','Cu']  
-metal_list = ['Au']  
+metal_list = ['Au','Cu']  
 
 # metal_list = ['C']  
 
