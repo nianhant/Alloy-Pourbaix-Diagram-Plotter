@@ -6,10 +6,8 @@ from pymatgen.analysis.phase_diagram import PDEntry, PhaseDiagram
 from mp_api.client import MPRester
 import re
 
-mpr_key = "hhsFnwPlqjxA77yv1zKSYGbynYuPJpR6"
+mpr_key = "your_mpr_key_here"
 mpr = MPRester(mpr_key)
-
-
 
 
 def save_as_json(data, data_dir, filename):
