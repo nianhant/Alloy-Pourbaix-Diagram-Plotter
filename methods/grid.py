@@ -9,13 +9,21 @@ class GridMaker:
 
         self.pH_values = np.linspace(pH_range[0], pH_range[1], grid_size)
         self.V_values = np.linspace(V_range[0], V_range[1], grid_size)
-        self.pH_grid, self.V_grid = np.meshgrid(self.pH_values, self.V_values)
-
         self.ligand_grid_dict = {
             'NH3': self.generate_ligand_grid('NH3', pKa=9.25),
             'Gly': self.generate_ligand_grid('Gly', pKa1=2.35, pKa2=9.78),
             'CN': self.generate_ligand_grid('CN', pKa=9.2)
         }
+
+    @property
+    def pH_grid(self):
+        """2D pH grid, built lazily for compatibility with older callers."""
+        return np.broadcast_to(self.pH_values, (self.grid_size, self.grid_size))
+
+    @property
+    def V_grid(self):
+        """2D voltage grid, built lazily for compatibility with older callers."""
+        return np.broadcast_to(self.V_values[:, np.newaxis], (self.grid_size, self.grid_size))
 
     def generate_ligand_grid(self, ligand, pKa=None, pKa1=None, pKa2=None):
         """Generates ligand activity grids based on given pKa values."""
@@ -23,10 +31,11 @@ class GridMaker:
             raise ValueError(f"Ligand {ligand} is not defined in concentration dictionary.")
 
         ligand_tot = self.ligand_concentration[ligand]
-        if pKa:  
-            return -np.log10(ligand_tot) + np.log10(1 + 10 ** (pKa - self.pH_grid))
-        elif pKa1 and pKa2:  
-            return (-np.log10(ligand_tot) + (pKa1 - self.pH_grid) +
-                    np.log10(1 + 10 ** (self.pH_grid - pKa1) + 1 / (10 ** (self.pH_grid - pKa2))))
-        else:
-            raise ValueError("Either pKa or (pKa1, pKa2) must be provided for ligand grid generation.")
+        pH = self.pH_values
+        with np.errstate(divide='ignore'):
+            if pKa is not None:
+                return -np.log10(ligand_tot) + np.log10(1 + 10 ** (pKa - pH))
+            if pKa1 is not None and pKa2 is not None:
+                return (-np.log10(ligand_tot) + (pKa1 - pH) +
+                        np.log10(1 + 10 ** (pH - pKa1) + 1 / (10 ** (pH - pKa2))))
+        raise ValueError("Either pKa or (pKa1, pKa2) must be provided for ligand grid generation.")

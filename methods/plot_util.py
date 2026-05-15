@@ -27,4 +27,7 @@ def generate_legends(ax, all_species_tuples_global, species_colors, plot_accesso
         loc="center left", frameon=True, bbox_to_anchor=(1.01, 0.5), ncol=2,
         columnspacing=1.0, handletextpad=1.0
     )
+    accessory_legend.set_in_layout(False)
+    combined_legend.set_in_layout(False)
     ax.add_artist(accessory_legend)
+    return accessory_legend, combined_legend

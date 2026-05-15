@@ -5,7 +5,18 @@ import colorsys
 import numpy as np
 import re
 import os
-from ase.formula import Formula
+try:
+    from ase.formula import Formula
+except ModuleNotFoundError:
+    class Formula:
+        def __init__(self, formula):
+            self.formula = formula
+
+        def reduce(self):
+            return (self, 1)
+
+        def __format__(self, spec):
+            return self.formula
 
 
 
@@ -74,22 +85,37 @@ class GridVisualizer:
         
         return file_name
 
-    def plot_species_distribution(self, species_grid, species_colors, ax=None, save_fig=True):
+    def plot_species_distribution(
+        self, species_grid, species_colors, ax=None, save_fig=True,
+        label_stable_regions=True, region_style='image'
+    ):
         """Plots the Pourbaix diagram using species distribution data."""
-        converted_species_grid = [
-            tuple(sorted(f"{species.formula}_{species.phase}_{species.alloy}" for species in species_tuple))
-            for species_tuple in species_grid.flatten()
-        ]
-
-        color_values = np.array([species_colors[species_tuple] for species_tuple in converted_species_grid])
         if ax is None:
             fig, ax = plt.subplots(figsize=(6, 6))  # Create new figure if no axis is provided
         else:
             fig = ax.figure
+
         ax.set_xlim(self.grid_maker.pH_range)
         ax.set_ylim(self.grid_maker.V_range)
-        ax.scatter(self.grid_maker.pH_grid.flatten(), self.grid_maker.V_grid.flatten(), 
-                   c=color_values, s=1, alpha=0.75)
+        if region_style == 'vector':
+            self.plot_vector_regions(ax, species_grid, species_colors)
+        else:
+            color_image = self.make_color_image(species_grid, species_colors)
+            ax.imshow(
+                color_image,
+                extent=[
+                    self.grid_maker.pH_range[0],
+                    self.grid_maker.pH_range[1],
+                    self.grid_maker.V_range[0],
+                    self.grid_maker.V_range[1],
+                ],
+                origin='lower',
+                aspect='auto',
+                interpolation='nearest',
+                rasterized=True,
+            )
+        if label_stable_regions:
+            self.label_stable_regions(ax, species_grid)
         
         ax.set_xlabel('pH')
         ax.set_ylabel(r'$E_{SHE}(V)$')
@@ -97,6 +123,147 @@ class GridVisualizer:
         self.add_plot_accessories(ax)
             
         return fig, ax
+
+    def make_color_image(self, species_grid, species_colors):
+        """Converts a compact or legacy species grid to an RGBA image."""
+        if hasattr(species_grid, 'min_indices') and hasattr(species_grid, 'species_list'):
+            palette = np.zeros((len(species_grid.species_list), 4), dtype=np.uint8)
+            for species_idx, species_tuple in enumerate(species_grid.species_list):
+                label = self.format_species_tuple(species_tuple)
+                if label not in species_colors:
+                    continue
+                rgba = np.array(to_rgba(species_colors[label]), dtype=np.float64)
+                rgba[3] *= 0.75
+                palette[species_idx] = np.clip(np.round(rgba * 255), 0, 255).astype(np.uint8)
+            return palette[species_grid.min_indices]
+
+        labels = [
+            self.format_species_tuple(species_tuple)
+            for species_tuple in species_grid.ravel()
+        ]
+        rgba_values = np.array([to_rgba(species_colors[label], alpha=0.75) for label in labels])
+        return np.clip(np.round(rgba_values.reshape(species_grid.shape + (4,)) * 255), 0, 255).astype(np.uint8)
+
+    def make_index_grid_and_colors(self, species_grid, species_colors):
+        """Returns integer region ids and opaque colors for vector/PDF output."""
+        if hasattr(species_grid, 'min_indices') and hasattr(species_grid, 'species_list'):
+            used_species_indices = np.unique(species_grid.min_indices)
+            remapped_grid = np.empty(species_grid.min_indices.shape, dtype=np.int32)
+            colors = []
+            for new_idx, species_idx in enumerate(used_species_indices):
+                remapped_grid[species_grid.min_indices == species_idx] = new_idx
+                species_tuple = species_grid.species_list[species_idx]
+                label = self.format_species_tuple(species_tuple)
+                colors.append(to_rgba(species_colors[label], alpha=1.0))
+            return remapped_grid, colors
+
+        labels = np.empty(species_grid.size, dtype=object)
+        for idx, species_tuple in enumerate(species_grid.ravel()):
+            labels[idx] = self.format_species_tuple(species_tuple)
+        labels = labels.reshape(species_grid.shape)
+        label_list = sorted(set(labels.ravel()))
+        label_to_idx = {label: idx for idx, label in enumerate(label_list)}
+        index_grid = np.empty(labels.shape, dtype=np.int32)
+        for label, idx in label_to_idx.items():
+            index_grid[labels == label] = idx
+        colors = [to_rgba(species_colors[label], alpha=1.0) for label in label_list]
+        return index_grid, colors
+
+    def plot_vector_regions(self, ax, species_grid, species_colors):
+        index_grid, colors = self.make_index_grid_and_colors(species_grid, species_colors)
+        levels = np.arange(len(colors) + 1) - 0.5
+        ax.contourf(
+            self.grid_maker.pH_values,
+            self.grid_maker.V_values,
+            index_grid,
+            levels=levels,
+            colors=colors,
+            antialiased=False,
+        )
+
+    @staticmethod
+    def format_species_tuple(species_tuple):
+        return tuple(sorted(
+            f"{species.formula}_{species.phase}_{species.alloy}"
+            for species in species_tuple
+        ))
+
+    def format_formula(self, formula):
+        if '[' in formula or 'aq' in formula or 'Gly' in formula:
+            formatted_formula = re.sub(r"([A-Za-z\)\]])(\d+)", r"\1$_{\2}$", formula)
+            formatted_formula = re.sub(r"\[([\d\+\-]+)\]", r"$^{\1}$", formatted_formula)
+            formatted_formula = re.sub(r"\$_\{1\}\$", "", formatted_formula)
+            formatted_formula = re.sub(r"\^\{1([+-])\}", r"^{\1}", formatted_formula)
+            return formatted_formula
+
+        formula_obj = Formula(formula)
+        reduced_formula = formula_obj.reduce()[0]
+        return f'{reduced_formula:latex}'
+
+    @staticmethod
+    def is_solid_pair_combo(combo_tuple):
+        return len(combo_tuple) == 2 and all(species.rsplit('_', 2)[1] == 'solid' for species in combo_tuple)
+
+    @staticmethod
+    def is_grey_alloy_combo(combo_tuple):
+        return all(species.rsplit('_', 2)[2] == 'True' for species in combo_tuple)
+
+    def iter_grid_labels(self, species_grid):
+        if hasattr(species_grid, 'min_indices') and hasattr(species_grid, 'species_list'):
+            for species_idx, species_tuple in enumerate(species_grid.species_list):
+                combo_label = self.format_species_tuple(species_tuple)
+                yield combo_label, species_grid.min_indices == species_idx
+            return
+
+        labels = np.empty(species_grid.size, dtype=object)
+        for idx, species_tuple in enumerate(species_grid.ravel()):
+            labels[idx] = self.format_species_tuple(species_tuple)
+        labels = labels.reshape(species_grid.shape)
+        for combo_label in set(labels.ravel()):
+            yield combo_label, labels == combo_label
+
+    def format_combo_label(self, combo_tuple):
+        labels = []
+        for species in combo_tuple:
+            formula, phase, _ = species.rsplit('_', 2)
+            labels.append(self.format_formula(formula) + ('(s)' if phase == 'solid' else '(aq)'))
+        return '+'.join(labels)
+
+    def should_label_combo(self, combo_tuple):
+        return self.is_solid_pair_combo(combo_tuple) or self.is_grey_alloy_combo(combo_tuple)
+
+    def label_stable_regions(self, ax, species_grid, min_region_fraction=0.002):
+        grid_area = self.grid_maker.grid_size ** 2
+        min_pixels = max(20, int(grid_area * min_region_fraction))
+
+        def place_label(combo_tuple, mask):
+            rows, cols = np.nonzero(mask)
+            if len(rows) < min_pixels:
+                return
+
+            center_row = rows.mean()
+            center_col = cols.mean()
+            label_idx = np.argmin((rows - center_row) ** 2 + (cols - center_col) ** 2)
+            row = rows[label_idx]
+            col = cols[label_idx]
+            pH = self.grid_maker.pH_values[col]
+            V = self.grid_maker.V_values[row]
+
+            text = ax.text(
+                pH, V, self.format_combo_label(combo_tuple),
+                ha='center', va='center', color='black', fontsize=20,
+            )
+
+        if hasattr(species_grid, 'min_indices') and hasattr(species_grid, 'species_list'):
+            for species_idx, species_tuple in enumerate(species_grid.species_list):
+                combo_tuple = self.format_species_tuple(species_tuple)
+                if self.should_label_combo(combo_tuple):
+                    place_label(combo_tuple, species_grid.min_indices == species_idx)
+            return
+
+        for combo_tuple, mask in self.iter_grid_labels(species_grid):
+            if self.should_label_combo(combo_tuple):
+                place_label(combo_tuple, mask)
 
 
 
@@ -124,18 +291,18 @@ class PlotAccessories:
         solid_index = 0
         aq_index = 0
         
-        for combo_tuple in all_species_tuples:  
+        for combo_tuple in sorted(all_species_tuples):
             new_combo_tuple_key = tuple(['_'.join(species.split('_')[:-1]) for species in combo_tuple ])
             
             if all(species.split('_')[-1] == 'True' for species in combo_tuple):
                 species_colors[combo_tuple] = grey_color
             elif all('solid' in species for species in combo_tuple):
                 solid_index += 1
-                normalized_index = solid_index/total_solid
+                normalized_index = solid_index/max(total_solid, 1)
                 species_colors[combo_tuple] = warmer_color_map(normalized_index)
             else:
                 aq_index += 1
-                normalized_index = aq_index/total_aq
+                normalized_index = aq_index/max(total_aq, 1)
                 species_colors[combo_tuple] = cooler_color_map(normalized_index)
         return species_colors
     

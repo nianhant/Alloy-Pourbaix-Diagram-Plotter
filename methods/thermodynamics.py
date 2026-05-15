@@ -1,8 +1,35 @@
 from pymatgen.analysis.reaction_calculator import Reaction
 from pymatgen.core import Composition
 from .species import Species
+from dataclasses import dataclass
 import itertools
 import numpy as np
+
+
+@dataclass
+class SpeciesGridResult:
+    """Compact representation of the stable species at each grid point."""
+    min_indices: np.ndarray
+    species_list: list
+
+    @staticmethod
+    def format_species_tuple(species_tuple):
+        formatted_list = [
+            f"{species.formula}_{species.phase}_{species.alloy}"
+            for species in species_tuple
+        ]
+        return tuple(sorted(formatted_list))
+
+    @property
+    def shape(self):
+        return self.min_indices.shape
+
+    def to_object_grid(self):
+        species_grid = np.empty(self.shape, dtype=object)
+        flat_grid = species_grid.ravel()
+        for grid_idx, species_idx in enumerate(self.min_indices.ravel()):
+            flat_grid[grid_idx] = self.species_list[species_idx]
+        return species_grid
 
 class PourbaixData:
 
@@ -135,44 +162,86 @@ class PourbaixCalculator:
 
     def compute_chemical_potential(self, eU_coeff, pH_coeff, p_ligand_coeff_dict, constants):
         """Computes the chemical potential grid for a given species."""
-        chemical_potential = eU_coeff * self.grid_maker.V_grid + pH_coeff * self.grid_maker.pH_grid + constants
+        pH_profile = pH_coeff * self.grid_maker.pH_values
 
         for ligand, coeff in p_ligand_coeff_dict.items():
             p_ligand_grid = self.grid_maker.ligand_grid_dict.get(ligand)
-            chemical_potential += coeff * p_ligand_grid
+            pH_profile = pH_profile + coeff * p_ligand_grid
 
-        return chemical_potential
+        return eU_coeff * self.grid_maker.V_values[:, np.newaxis] + pH_profile[np.newaxis, :] + constants
+
+    def compute_combo_terms(self, combo_tuple, react_coeffs):
+        """Reduces a species combination to separable V and pH terms."""
+        V_coeff = 0.0
+        pH_profile = np.zeros(self.grid_maker.grid_size, dtype=np.float64)
+        constants = 0.0
+
+        for i, species in enumerate(combo_tuple):
+            react_coeff = react_coeffs[i]
+            eU_coeff, pH_coeff, p_ligand_coeff_dict, species_constants = self.formulate_coefficients(species)
+            V_coeff += react_coeff * eU_coeff
+            pH_profile += react_coeff * pH_coeff * self.grid_maker.pH_values
+            constants += react_coeff * species_constants
+
+            for ligand, ligand_coeff in p_ligand_coeff_dict.items():
+                p_ligand_grid = self.grid_maker.ligand_grid_dict.get(ligand)
+                pH_profile += react_coeff * ligand_coeff * p_ligand_grid
+
+        return V_coeff, pH_profile, constants
+
+    def compute_combo_chemical_potential(self, combo_tuple, react_coeffs, row_slice=None):
+        """Computes one combination's chemical potential grid, optionally for a row chunk."""
+        V_coeff, pH_profile, constants = self.compute_combo_terms(combo_tuple, react_coeffs)
+        V_values = self.grid_maker.V_values if row_slice is None else self.grid_maker.V_values[row_slice]
+        return V_coeff * V_values[:, np.newaxis] + pH_profile[np.newaxis, :] + constants
 
     def compute_all_chemical_potentials(self):
         """Computes chemical potentials for all species combinations."""
         
         combo_react_coeffs_dict = self.species_data.reaction_coefficients
         for combo_tuple, react_coeffs in combo_react_coeffs_dict.items():
-            self.combo_chemical_potential_dict[combo_tuple] = np.zeros(
-                (self.grid_maker.grid_size, self.grid_maker.grid_size), dtype=np.float64
+            self.combo_chemical_potential_dict[combo_tuple] = self.compute_combo_chemical_potential(
+                combo_tuple, react_coeffs
             )
-            for i, species in enumerate(combo_tuple):
-                eU_coeff, pH_coeff, p_ligand_coeff_dict, constants = self.formulate_coefficients(species)
-                chemical_potential = self.compute_chemical_potential(eU_coeff, pH_coeff, p_ligand_coeff_dict, constants)
-                self.combo_chemical_potential_dict[combo_tuple] += chemical_potential * react_coeffs[i]
 
-    def find_min_energy_species(self):
+    def find_min_energy_species(self, chunk_rows=256):
         """Finds the most stable species at each grid point."""
-        species_list = list(self.combo_chemical_potential_dict.keys())
-        energy_grids = np.array([self.combo_chemical_potential_dict[species] for species in species_list])
+        combo_react_coeffs_dict = self.species_data.reaction_coefficients
+        species_list = list(combo_react_coeffs_dict.keys())
+        if not species_list:
+            raise ValueError("No valid species combinations were generated.")
 
-        min_indices = np.argmin(energy_grids, axis=0)
-        min_species_grid = np.empty(min_indices.shape, dtype=object)
+        grid_shape = (self.grid_maker.grid_size, self.grid_maker.grid_size)
+        min_energy = np.full(grid_shape, np.inf, dtype=np.float64)
+        min_indices = np.zeros(grid_shape, dtype=np.int32)
+        row_chunk = max(1, min(chunk_rows, self.grid_maker.grid_size))
+
+        combo_terms = [
+            self.compute_combo_terms(combo_tuple, combo_react_coeffs_dict[combo_tuple])
+            for combo_tuple in species_list
+        ]
+
+        for combo_idx, (V_coeff, pH_profile, constants) in enumerate(combo_terms):
+            for row_start in range(0, self.grid_maker.grid_size, row_chunk):
+                row_stop = min(row_start + row_chunk, self.grid_maker.grid_size)
+                row_slice = slice(row_start, row_stop)
+                energy = (
+                    V_coeff * self.grid_maker.V_values[row_slice, np.newaxis]
+                    + pH_profile[np.newaxis, :]
+                    + constants
+                )
+                chunk_min = min_energy[row_slice]
+                chunk_indices = min_indices[row_slice]
+                mask = energy < chunk_min
+                chunk_min[mask] = energy[mask]
+                chunk_indices[mask] = combo_idx
+
         all_species_tuples_set = set()
-        
-        for i in range(min_species_grid.shape[0]):
-            for j in range(min_species_grid.shape[1]):
-                species_tuple = species_list[min_indices[i, j]]
-                min_species_grid[i, j] = species_tuple
-                formatted_list = [f"{species.formula}_{species.phase}_{species.alloy}" for species in species_tuple]
-                formatted_tuple = tuple(sorted(formatted_list))
-                all_species_tuples_set.add(formatted_tuple)
-        return min_species_grid, all_species_tuples_set
+        for species_idx in np.unique(min_indices):
+            species_tuple = species_list[species_idx]
+            all_species_tuples_set.add(SpeciesGridResult.format_species_tuple(species_tuple))
+
+        return SpeciesGridResult(min_indices, species_list), all_species_tuples_set
 
 
 class PourbaixAnalyzer:
@@ -180,7 +249,5 @@ class PourbaixAnalyzer:
         self.pourbaix_calculator = PourbaixCalculator(species_data, grid_maker, T)
 
     def analyze_and_plot(self):
-        self.pourbaix_calculator.compute_all_chemical_potentials()
-
         species_grid, all_species_tuples_set = self.pourbaix_calculator.find_min_energy_species()
         return species_grid, all_species_tuples_set 

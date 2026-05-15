@@ -15,13 +15,6 @@ class SpeciesDataLoader:
         self.metal_complex_df = self.load_metal_complex_data()
         self.metal_complex_df = self.metal_complex_df[self.metal_complex_df["ligand"] != "NO2[1-]"]
         self.metal_complex_df['del_G_eV_vary_T'] = self.metal_complex_df.apply(self.calculate_G, axis=1)
-
-        # Since Pd and Pt's complexes have controversial stability constants
-        # if 'Pd' in self.metal_reference:
-        #     self.metal_complex_df.loc[self.metal_complex_df["species"] == 'Pd(CN)4[2+]', "del_G_eV"] = 6.467825128
-        # if 'Pt' in self.metal_reference:
-        #     self.metal_complex_df.loc[self.metal_complex_df["species"] == 'Pt(CN)4[2+]', "del_G_eV"] = 5.646346039
-         # harrington's stability constant = 70
         
         self.metal_complex_df["species_label"] = self.metal_complex_df.apply(self.create_species, axis=1)
         self.metal_complex, self.species_label_dict = self.filter_metal_complex()
