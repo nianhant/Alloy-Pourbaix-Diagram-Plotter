@@ -9,6 +9,9 @@ from methods.runner import plot_pourbaix
 
 
 METALS = ("Ni", "Ti")
+# METALS = ("Cu", "Ti")
+METALS = ("Pd", "Au")
+
 MU_LIGAND = {"NH3": -0.276037, "Gly": -3.263014109, "CN": 1.786800089}
 TEMPERATURE_K = 298.15
 ACTIVITY = 1e-4

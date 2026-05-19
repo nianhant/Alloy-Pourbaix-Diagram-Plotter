@@ -6,7 +6,9 @@ from pymatgen.analysis.phase_diagram import PDEntry, PhaseDiagram
 from mp_api.client import MPRester
 import re
 
-mpr_key = "your_mpr_key_here"
+mpr_key = os.getenv("MP_API_KEY")
+if not mpr_key:
+    raise ValueError("Set the MP_API_KEY environment variable before fetching Materials Project data.")
 mpr = MPRester(mpr_key)
 
 
@@ -60,4 +62,3 @@ def get_alloy_solid_formation_energy(data_dir, metal_1, metal_2, dimensionally_s
                 solid_formation_eng[trimmed_formula] = entry.uncorrected_energy
     save_as_json(solid_formation_eng, data_dir, f'{metal_1}_{metal_2}_solid_formation_energy')
     return solid_formation_eng
-

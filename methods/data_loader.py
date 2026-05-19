@@ -75,6 +75,13 @@ class SpeciesDataLoader:
         """Loads solid and ion formation energies."""
         solid_file = os.path.join(self.data_dir, f"{self.metal_1}_{self.metal_2}_solid_formation_energy.json")
         ion_file = os.path.join(self.data_dir, f"{self.metal_1}_{self.metal_2}_ion_formation_energy.json")
+        reverse_solid_file = os.path.join(self.data_dir, f"{self.metal_2}_{self.metal_1}_solid_formation_energy.json")
+        reverse_ion_file = os.path.join(self.data_dir, f"{self.metal_2}_{self.metal_1}_ion_formation_energy.json")
+
+        if not (os.path.exists(solid_file) and os.path.exists(ion_file)):
+            if os.path.exists(reverse_solid_file) and os.path.exists(reverse_ion_file):
+                solid_file = reverse_solid_file
+                ion_file = reverse_ion_file
 
         solid_eng, ion_eng = {}, {}
         if os.path.exists(solid_file) and os.path.exists(ion_file):

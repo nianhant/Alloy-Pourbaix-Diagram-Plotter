@@ -28,7 +28,7 @@ def plot_pourbaix(metal_1, metal_2, mu_ligand, T, activity, ligand_concentration
     for reference_alloy, reference_composition in prod_comp_dict.items():
         species_grid_list, all_species_tuples_global = [], set()
 
-        grid_maker = GridMaker((-2, 16), (-2, 3), ligand_concentration, 2000)
+        grid_maker = GridMaker((-2, 16), (-2, 3), ligand_concentration, 800)
         pourbaix_data = PourbaixData(species_data, activity, ligand_concentration, reference_composition)
         analyzer = PourbaixAnalyzer(pourbaix_data, grid_maker, T)
 
@@ -51,14 +51,21 @@ def plot_pourbaix(metal_1, metal_2, mu_ligand, T, activity, ligand_concentration
             output_file = output_path / f"{file_stem}.png"
 
             # print(file_name)
-            plt.savefig(output_file, bbox_inches='tight')
+            plt.savefig(output_file, bbox_inches='tight', transparent=False, facecolor='white', dpi=600)
             if save_pdf:
                 plt.close(fig)
                 fig, ax = plt.subplots(figsize=(8, 8))
                 fig.subplots_adjust(left=0.16, right=0.96, bottom=0.14, top=0.96)
                 GridVisualizer(grid_maker, pourbaix_data).plot_species_distribution(
                     species_grid, species_colors, ax=ax, save_fig=False,
-                    region_style='vector',
+                    region_style='image',
                 )
-                plt.savefig(output_path / f"{file_stem}.pdf", bbox_inches='tight')
+                plt.savefig(
+                    output_path / f"{file_stem}.pdf",
+                    bbox_inches='tight',
+                    transparent=False,
+                    facecolor='white',
+                    dpi=600,
+                )
+                plt.savefig(output_path / f"{file_stem}.svg", format="svg", bbox_inches="tight")
         plt.close()
