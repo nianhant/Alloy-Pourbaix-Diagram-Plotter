@@ -9,7 +9,6 @@ from .thermodynamics import PourbaixData, PourbaixAnalyzer
 from .grid import GridMaker
 from .visualization import GridVisualizer, PlotAccessories
 from .utils import parse_composition, format_comp_dict
-from .plot_util import generate_legends
 from .set_publication_style import set_publication_style
 
 
@@ -29,7 +28,7 @@ def plot_pourbaix(metal_1, metal_2, mu_ligand, T, activity, ligand_concentration
     for reference_alloy, reference_composition in prod_comp_dict.items():
         species_grid_list, all_species_tuples_global = [], set()
 
-        grid_maker = GridMaker((-2, 16), (-2, 3), ligand_concentration, 400)
+        grid_maker = GridMaker((-2, 16), (-2, 3), ligand_concentration, 200)
         pourbaix_data = PourbaixData(species_data, activity, ligand_concentration, reference_composition)
         analyzer = PourbaixAnalyzer(pourbaix_data, grid_maker, T)
 
@@ -41,7 +40,6 @@ def plot_pourbaix(metal_1, metal_2, mu_ligand, T, activity, ligand_concentration
 
         fig, ax = GridVisualizer(grid_maker, pourbaix_data).plot_species_distribution(
                             species_grid, species_colors, ax=ax, save_fig=False)
-        generate_legends(ax, all_species_tuples_global, species_colors, PlotAccessories(species_data), pH_exp_range, V_exp_range)
 
         plt.tight_layout()
         if save_fig:
@@ -54,4 +52,3 @@ def plot_pourbaix(metal_1, metal_2, mu_ligand, T, activity, ligand_concentration
             print(file_name)
             plt.savefig(output_file, bbox_inches='tight')
         plt.close()
-

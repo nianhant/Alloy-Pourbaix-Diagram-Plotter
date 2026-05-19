@@ -5,8 +5,26 @@ import colorsys
 import numpy as np
 import re
 import os
-from ase.formula import Formula
+try:
+    from ase.formula import Formula
+except ModuleNotFoundError:
+    class Formula:
+        def __init__(self, formula):
+            self.formula = formula
 
+        def reduce(self):
+            return (self, 1)
+
+        def __format__(self, spec):
+            return self.formula
+
+
+LIGAND_ELEMENT_COUNTS = {
+    'NH3': {'N': 1, 'H': 3},
+    'CN': {'C': 1, 'N': 1},
+    'Gly': {'C': 2, 'H': 4, 'N': 1, 'O': 2},
+    'NO2': {'N': 1, 'O': 2},
+}
 
 
 class GridVisualizer:
@@ -41,7 +59,7 @@ class GridVisualizer:
         V_right_top = V_exp_range[1] - PREFAC * box_right
         
         lw = 1
-        style = 'g-'
+        style = 'k-'
         # Bottom side (V as a function of pH)
         bottom, = ax.plot([box_left, box_right], [V_left_bottom, V_right_bottom], style, lw=lw, 
         label = f'Exp condition\nV vs RHE={V_exp_range[0]}-{V_exp_range[1]}\npH={pH_exp_range[0]}-{pH_exp_range[1]}')  
@@ -104,6 +122,139 @@ class PlotAccessories:
     def __init__(self,species_data): #all_species_tuples
         """Takes a GridMaker instance and uses it for visualization."""
         self.species_data = species_data
+
+    @staticmethod
+    def parse_formula_counts(formula):
+        if formula in LIGAND_ELEMENT_COUNTS:
+            return dict(LIGAND_ELEMENT_COUNTS[formula])
+
+        counts = {}
+        for element, number in re.findall(r'([A-Z][a-z]?)(\d*)', formula):
+            counts[element] = counts.get(element, 0) + int(number or 1)
+        return counts
+
+    @staticmethod
+    def get_formula_element_counts(formula):
+        clean_formula = re.sub(r'\[[^\]]+\]', '', formula.replace('(aq)', ''))
+        counts = {}
+
+        for group, multiplier in re.findall(r'\(([A-Za-z0-9]+)\)(\d*)', clean_formula):
+            multiplier = int(multiplier or 1)
+            for element, count in PlotAccessories.parse_formula_counts(group).items():
+                counts[element] = counts.get(element, 0) + count * multiplier
+
+        clean_formula = re.sub(r'\([A-Za-z0-9]+\)\d*', '', clean_formula)
+        for element, count in PlotAccessories.parse_formula_counts(clean_formula).items():
+            counts[element] = counts.get(element, 0) + count
+
+        return counts
+
+    @staticmethod
+    def split_species_key(species):
+        parts = species.rsplit('_', 2)
+        return parts[0], parts[1], parts[2] == 'True'
+
+    def classify_combo(self, combo_tuple):
+        phases = []
+        has_oxide = False
+        has_oxyhydroxide = False
+        has_hydride = False
+        has_ligand_complex = False
+        is_alloy_combo = all(self.split_species_key(species)[2] for species in combo_tuple)
+
+        for species in combo_tuple:
+            formula, phase, _ = self.split_species_key(species)
+            phases.append(phase)
+
+            if 'complex' in phase:
+                has_ligand_complex = True
+                continue
+
+            element_counts = self.get_formula_element_counts(formula)
+            oxygen_count = element_counts.get('O', 0)
+            hydrogen_count = element_counts.get('H', 0)
+
+            if oxygen_count > 0 and hydrogen_count > 0:
+                has_oxyhydroxide = True
+            elif oxygen_count > 0:
+                has_oxide = True
+            elif hydrogen_count > 0:
+                has_hydride = True
+
+        if has_ligand_complex:
+            return 'metal_ligand_complex'
+        if all(phase != 'solid' for phase in phases):
+            return 'aqueous_metal_ion'
+        if has_oxyhydroxide:
+            return 'metal_oxyhydroxide'
+        if has_oxide:
+            return 'metal_oxide'
+        if has_hydride:
+            return 'metal_hydride'
+        if is_alloy_combo or all(phase == 'solid' for phase in phases):
+            return 'metal'
+        return 'aqueous_metal_ion'
+
+    def color_intensity_for_combo(self, combo_tuple, category, used_intensities=None):
+        total_metals = 0
+        total_oxygen = 0
+        total_other = 0
+
+        for species in combo_tuple:
+            formula, _, _ = self.split_species_key(species)
+            element_counts = self.get_formula_element_counts(formula)
+            for element, count in element_counts.items():
+                if element in ['O', 'H', 'N', 'C']:
+                    total_other += count
+                else:
+                    total_metals += count
+            total_oxygen += element_counts.get('O', 0)
+
+        if category == 'metal':
+            intensity = 0.36
+        elif category == 'metal_hydride':
+            intensity = 0.42
+        elif category == 'metal_oxide' and total_oxygen > 0:
+            oxygen_per_metal = total_oxygen / max(total_metals, 1)
+            intensity = 0.82 - 0.16 * oxygen_per_metal
+        elif total_other > 0:
+            metal_fraction = total_metals / (total_metals + total_other)
+            intensity = 0.22 + 0.72 * metal_fraction
+        else:
+            intensity = 0.50
+
+        if category == 'metal_oxyhydroxide':
+            intensity += 0.08
+        elif category == 'metal_ligand_complex':
+            intensity += 0.10
+
+        intensity = min(0.88, max(0.22, intensity))
+        if used_intensities is None:
+            return intensity
+
+        if category == 'metal_oxide':
+            used_intensities.append(intensity)
+            return intensity
+
+        while any(abs(intensity - used) < 0.055 for used in used_intensities):
+            intensity += 0.065
+            if intensity > 0.90:
+                intensity = 0.25
+        used_intensities.append(intensity)
+        return intensity
+
+    def get_color_for_category(self, combo_tuple, category, used_intensities=None):
+        color_maps = {
+            'metal': 'Greys',
+            'metal_hydride': 'Greys',
+            'metal_oxide': 'YlOrBr',
+            'metal_oxyhydroxide': 'Oranges',
+            'aqueous_metal_ion': 'PuBuGn',
+            'metal_ligand_complex': 'RdPu',
+        }
+        color_map = plt.cm.get_cmap(color_maps.get(category, 'Greys'))
+        intensity = self.color_intensity_for_combo(combo_tuple, category, used_intensities)
+        return color_map(intensity)
         
     def count_total_phases(self, all_species_tuples):
         total_solid = 0
@@ -116,27 +267,15 @@ class PlotAccessories:
     
     def get_color_for_label(self, all_species_tuples): 
         species_colors = {}
-        total_solid, total_aq = self.count_total_phases(all_species_tuples)
-        
-        warmer_color_map = plt.cm.get_cmap('summer')  # Warmer colors
-        cooler_color_map = plt.cm.get_cmap('cool')  # Cooler colors
-        grey_color = to_rgba('grey')
-        solid_index = 0
-        aq_index = 0
+        used_intensities = {}
         
         for combo_tuple in all_species_tuples:  
-            new_combo_tuple_key = tuple(['_'.join(species.split('_')[:-1]) for species in combo_tuple ])
-            
-            if all(species.split('_')[-1] == 'True' for species in combo_tuple):
-                species_colors[combo_tuple] = grey_color
-            elif all('solid' in species for species in combo_tuple):
-                solid_index += 1
-                normalized_index = solid_index/total_solid
-                species_colors[combo_tuple] = warmer_color_map(normalized_index)
-            else:
-                aq_index += 1
-                normalized_index = aq_index/total_aq
-                species_colors[combo_tuple] = cooler_color_map(normalized_index)
+            category = self.classify_combo(combo_tuple)
+            species_colors[combo_tuple] = self.get_color_for_category(
+                combo_tuple,
+                category,
+                used_intensities.setdefault(category, []),
+            )
         return species_colors
     
     def format_formula(self, formula):

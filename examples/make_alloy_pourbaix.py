@@ -38,7 +38,9 @@ ligand_concentration_list = [aqueous_only, exp, with_CN,
                              {'NH3':0, 'NO2':0, 'Gly': 0.1, 'CN':0},
                              {'NH3':0.02, 'NO2':0, 'Gly': 0.1, 'CN':0},
                              {'NH3':0.02, 'NO2':0, 'Gly': 0.1, 'CN':1e-4}]
-# ligand_concentration_list = [aqueous_only]
+ligand_concentration_list = [aqueous_only,
+                            {'NH3':0.02, 'NO2':0, 'Gly': 0.005, 'CN':0},
+                            {'NH3':0.02, 'NO2':0, 'Gly': 0.005, 'CN':0.0001}]
 data_dir = '../data'
 pH_exp_range=(11.5, 13.5)
 V_exp_range=(-2, 2.3)
@@ -48,7 +50,7 @@ outdir = f"../figures/pourbaix_diagrams"
 for m in metal_list:
     metal_1, metal_2 = m
     outdir=f'/home/x-ntian/pourbaix_paper/Accelerated-Computational-Materials-Discovery-for-Electrochemical-Nutrient-Recovery/Figures/pourbaix_diagrams/'
-
+    outdir = f"../figures/pourbaix_diagrams"
     for activity in activity_list:
         for ligand_concentration in ligand_concentration_list:
             plot_pourbaix(metal_1, metal_2, mu_ligand, T, activity, ligand_concentration, 
