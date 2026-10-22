@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib import colormaps
 from matplotlib.lines import Line2D
 from matplotlib.colors import to_rgba
 import colorsys
@@ -97,7 +98,8 @@ class GridVisualizer:
 
     def plot_species_distribution(
         self, species_grid, species_colors, ax=None, save_fig=True,
-        label_stable_regions=True, region_style='image'
+        label_stable_regions=True, region_style='image',
+        pH_exp_range=(11.5, 13.5), V_exp_range=(-2, 2.3),
     ):
         """Plots the Pourbaix diagram using species distribution data."""
         if ax is None:
@@ -136,7 +138,7 @@ class GridVisualizer:
         ax.set_xlabel('pH')
         ax.set_ylabel(r'$E_{SHE}(V)$')
         self.add_H2_O2_lines(ax)
-        self.add_plot_accessories(ax)
+        self.add_plot_accessories(ax, pH_exp_range, V_exp_range)
             
         return fig, ax
 
@@ -245,9 +247,22 @@ class GridVisualizer:
         for combo_label in set(labels.ravel()):
             yield combo_label, labels == combo_label
 
+    def is_aqueous_complex_species(self, species):
+        formula, phase, _ = species.rsplit('_', 2)
+        complex_label_dict = getattr(self.species_data, 'species_label_dict', {})
+        return phase != 'solid' and (
+            phase == 'complex'
+            or formula in complex_label_dict
+            or any(ligand in formula for ligand in LIGAND_ELEMENT_COUNTS)
+        )
+
+    def is_pink_complex_combo(self, combo_tuple):
+        return any(self.is_aqueous_complex_species(species) for species in combo_tuple)
+
     def format_combo_label(self, combo_tuple):
         labels = []
         complex_label_dict = getattr(self.species_data, 'species_label_dict', {})
+
         for species in combo_tuple:
             formula, phase, _ = species.rsplit('_', 2)
             if formula in complex_label_dict:
@@ -256,7 +271,10 @@ class GridVisualizer:
         return '+'.join(labels)
 
     def should_label_combo(self, combo_tuple):
-        return all(species.rsplit('_', 2)[1] == 'solid' for species in combo_tuple)
+        return (
+            all(species.rsplit('_', 2)[1] == 'solid' for species in combo_tuple)
+            or self.is_pink_complex_combo(combo_tuple)
+        )
 
     def water_line_label_angle(self, ax):
         PREFAC = 0.0591
@@ -724,7 +742,7 @@ class PlotAccessories:
             'aqueous_metal_ion': 'Blues',
             'metal_ligand_complex': 'RdPu',
         }
-        color_map = plt.cm.get_cmap(color_maps.get(category, 'Greys'))
+        color_map = colormaps[color_maps.get(category, 'Greys')]
         if fixed_intensity is None:
             intensity = self.color_intensity_for_combo(combo_tuple, category, used_intensities)
         else:

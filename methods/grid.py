@@ -36,6 +36,15 @@ class GridMaker:
             if pKa is not None:
                 return -np.log10(ligand_tot) + np.log10(1 + 10 ** (pKa - pH))
             if pKa1 is not None and pKa2 is not None:
-                return (-np.log10(ligand_tot) + (pKa1 - pH) +
-                        np.log10(1 + 10 ** (pH - pKa1) + 1 / (10 ** (pH - pKa2))))
+                return (
+                        -np.log10(ligand_tot)
+                        + np.log10(
+                            1
+                            + 10 ** (pKa2 - pH)
+                            + 10 ** (pKa1 + pKa2 - 2 * pH)
+                        )
+                )
+
+            # (-np.log10(ligand_tot) + (pKa1 - pH) +
+            #             np.log10(1 + 10 ** (pH - pKa1) + 1 / (10 ** (pH - pKa2))))
         raise ValueError("Either pKa or (pKa1, pKa2) must be provided for ligand grid generation.")

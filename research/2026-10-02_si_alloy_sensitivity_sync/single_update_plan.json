@@ -1,0 +1,32 @@
+{
+  "source": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/pourbaix_sensitivity_SI.tex",
+  "source_sha256": "66f917f5e042d9040514b26b8552d10ab32704d492ee8601992221f0e4d99bb4",
+  "removed_labels": [
+    "fig:Au_CN_sensitivity_SI",
+    "fig:Ni_CN_sensitivity_SI",
+    "fig:Cu_CN_sensitivity_SI",
+    "fig:Pd_CN_sensitivity_SI",
+    "fig:Pt_CN_sensitivity_SI",
+    "fig:Ti_CN_sensitivity_SI"
+  ],
+  "retained_labels": [
+    "fig:Au_activity_sensitivity_SI",
+    "fig:Au_NH3_sensitivity_SI",
+    "fig:Au_Gly_sensitivity_SI",
+    "fig:Ni_activity_sensitivity_SI",
+    "fig:Ni_NH3_sensitivity_SI",
+    "fig:Ni_Gly_sensitivity_SI",
+    "fig:Cu_activity_sensitivity_SI",
+    "fig:Cu_NH3_sensitivity_SI",
+    "fig:Cu_Gly_sensitivity_SI",
+    "fig:Pd_activity_sensitivity_SI",
+    "fig:Pd_NH3_sensitivity_SI",
+    "fig:Pd_Gly_sensitivity_SI",
+    "fig:Pt_activity_sensitivity_SI",
+    "fig:Pt_NH3_sensitivity_SI",
+    "fig:Pt_Gly_sensitivity_SI",
+    "fig:Ti_activity_sensitivity_SI",
+    "fig:Ti_NH3_sensitivity_SI",
+    "fig:Ti_Gly_sensitivity_SI"
+  ]
+}

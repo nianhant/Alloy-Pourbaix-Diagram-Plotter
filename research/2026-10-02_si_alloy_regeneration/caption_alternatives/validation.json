@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "figure_count": 2,
+  "panel_count": 4,
+  "export_count": 8,
+  "alloy_source_include_and_images_unchanged": true,
+  "concurrent_source_changes": [
+    {
+      "path": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI.tex",
+      "original_sha256": "ab4547b7ef197a091f86e77b27adddf11ecefa0845eee7928aae50c765c246ec",
+      "current_sha256": "81f7e639b26999c992ccaae52ea6e3b31e5bde4e35a8566fea48d0124530cf17"
+    }
+  ]
+}

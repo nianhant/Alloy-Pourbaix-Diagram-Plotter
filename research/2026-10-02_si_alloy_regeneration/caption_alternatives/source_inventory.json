@@ -1,0 +1,235 @@
+[
+  {
+    "alloy": "TiNi",
+    "metals": [
+      "Ni",
+      "Ti"
+    ],
+    "sources": [
+      "pbx_Ni_Ti_NH3_Gly.png",
+      "pbx_Ni_Ti_NH3_Gly_CN.png"
+    ],
+    "source_modes": [
+      "NH3_Gly",
+      "NH3_Gly_CN"
+    ],
+    "figure_label": "fig:Ti_Ni_Pourbaix_SI",
+    "panel_labels": [
+      "fig:TiNi_Pourbaix_NH3_Gly_SI",
+      "fig:TiNi_Pourbaix_NH3_Gly_CN_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\\label{fig:TiNi_Pourbaix_NH3_Gly_SI}\n        \\includegraphics[width=\\textwidth]{pbx_Ni_Ti_NH3_Gly.png}\n       \n    \\end{subfigure}\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\\label{fig:TiNi_Pourbaix_NH3_Gly_CN_SI}\n        \\includegraphics[width=\\textwidth]{pbx_Ni_Ti_NH3_Gly_CN.png}\n       \n    \\end{subfigure}\n    \\caption{Pourbaix diagrams of TiNi. (a) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=0M$, (b) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=\\num{1e-4}$M. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Ti_Ni_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": false
+  },
+  {
+    "alloy": "TiCu",
+    "metals": [
+      "Cu",
+      "Ti"
+    ],
+    "sources": [
+      "pbx_Cu_Ti_H2O.png",
+      "pbx_Cu_Ti_NH3_Gly_CN.png"
+    ],
+    "source_modes": [
+      "H2O",
+      "NH3_Gly_CN"
+    ],
+    "figure_label": "fig:Ti_Cu_Pourbaix_SI",
+    "panel_labels": [
+      "fig:TiCu_Pourbaix_NH3_Gly_SI",
+      "fig:TiCu_Pourbaix_NH3_Gly_CN_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\\label{fig:TiCu_Pourbaix_NH3_Gly_SI}\n        \\includegraphics[width=\\textwidth]{pbx_Cu_Ti_H2O.png}\n       \n    \\end{subfigure}\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\\label{fig:TiCu_Pourbaix_NH3_Gly_CN_SI}\n        \\includegraphics[width=\\textwidth]{pbx_Cu_Ti_NH3_Gly_CN.png}\n       \n    \\end{subfigure}\n    \\caption{Pourbaix diagrams of TiCu. (a) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=0M$, (b) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=\\num{1e-4}$M. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Ti_Cu_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": true
+  },
+  {
+    "alloy": "TiFe",
+    "metals": [
+      "Ti",
+      "Fe"
+    ],
+    "sources": [
+      "pbx_Ti_Fe_NH3_Gly.png",
+      "pbx_Ti_Fe_NH3_Gly_CN.png"
+    ],
+    "source_modes": [
+      "NH3_Gly",
+      "NH3_Gly_CN"
+    ],
+    "figure_label": "fig:Ti_Fe_Pourbaix_SI",
+    "panel_labels": [
+      "fig:TiFe_Pourbaix_NH3_Gly_SI",
+      "fig:TiFe_Pourbaix_NH3_Gly_CN_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Ti_Fe_NH3_Gly.png}\n        \\label{fig:TiFe_Pourbaix_NH3_Gly_SI}\n       \n    \\end{subfigure}\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Ti_Fe_NH3_Gly_CN.png}\n        \\label{fig:TiFe_Pourbaix_NH3_Gly_CN_SI}\n       \n    \\end{subfigure}\n    \\caption{Pourbaix diagrams of TiFe. (a) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=0M$, (b) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=\\num{1e-4}$M. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Ti_Fe_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": false
+  },
+  {
+    "alloy": "TiMg",
+    "metals": [
+      "Ti",
+      "Mg"
+    ],
+    "sources": [
+      "pbx_Ti_Mg_NH3_Gly.png"
+    ],
+    "source_modes": [
+      "NH3_Gly"
+    ],
+    "figure_label": "fig:Ti_Mg_Pourbaix_SI",
+    "panel_labels": [
+      "fig:TiMg_Pourbaix_NH3_Gly_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \\begin{subfigure}[b]{\\textwidth}\n        \n        \\includegraphics[width=\\textwidth]{pbx_Ti_Mg_NH3_Gly.png}\n        \\label{fig:TiMg_Pourbaix_NH3_Gly_SI}\n       \n    \\end{subfigure}\n    \n    \n    \n    \n    \n    \n    \\caption{Pourbaix diagrams of TiMg. (a) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=0M$. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Ti_Mg_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": false
+  },
+  {
+    "alloy": "TiMn",
+    "metals": [
+      "Ti",
+      "Mn"
+    ],
+    "sources": [
+      "pbx_Ti_Mn_NH3_Gly.png"
+    ],
+    "source_modes": [
+      "NH3_Gly"
+    ],
+    "figure_label": "fig:Ti_Mn_Pourbaix_SI",
+    "panel_labels": [
+      "fig:TiMn_Pourbaix_NH3_Gly_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \\begin{subfigure}[b]{\\textwidth}\n        \n        \\includegraphics[width=\\textwidth]{pbx_Ti_Mn_NH3_Gly.png}\n        \\label{fig:TiMn_Pourbaix_NH3_Gly_SI}\n       \n    \\end{subfigure}\n    \n    \n    \n    \n    \n    \n    \\caption{Pourbaix diagrams of TiMn. $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=0M$. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Ti_Mn_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": false
+  },
+  {
+    "alloy": "TiZn",
+    "metals": [
+      "Ti",
+      "Zn"
+    ],
+    "sources": [
+      "pbx_Ti_Zn_NH3_Gly_CN.png"
+    ],
+    "source_modes": [
+      "NH3_Gly_CN"
+    ],
+    "figure_label": "fig:Ti_Zn_Pourbaix_SI",
+    "panel_labels": [
+      "fig:TiZn_Pourbaix_NH3_Gly_CN_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \n    \n    \n    \n    \n    \n    \\begin{subfigure}[b]{\\textwidth}\n        \n        \\includegraphics[width=\\textwidth]{pbx_Ti_Zn_NH3_Gly_CN.png}\n        \\label{fig:TiZn_Pourbaix_NH3_Gly_CN_SI}\n       \n    \\end{subfigure}\n    \\caption{Pourbaix diagrams of TiZn. $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=\\num{1e-4}$M. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Ti_Zn_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": false
+  },
+  {
+    "alloy": "PdAg",
+    "metals": [
+      "Pd",
+      "Ag"
+    ],
+    "sources": [
+      "pbx_Pd_Ag_NH3_Gly.png",
+      "pbx_Pd_Ag_NH3_Gly_CN.png"
+    ],
+    "source_modes": [
+      "NH3_Gly",
+      "NH3_Gly_CN"
+    ],
+    "figure_label": "fig:Pd_Ag_Pourbaix_SI",
+    "panel_labels": [
+      "fig:PdAg_Pourbaix_NH3_Gly_SI",
+      "fig:PdAg_Pourbaix_NH3_Gly_CN_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Pd_Ag_NH3_Gly.png}\n        \\label{fig:PdAg_Pourbaix_NH3_Gly_SI}\n       \n    \\end{subfigure}\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Pd_Ag_NH3_Gly_CN.png}\n        \\label{fig:PdAg_Pourbaix_NH3_Gly_CN_SI}\n       \n    \\end{subfigure}\n    \\caption{Pourbaix diagrams of PdAg. (a) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=0M$, (b) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=\\num{1e-4}$M. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Pd_Ag_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": false
+  },
+  {
+    "alloy": "PdCu",
+    "metals": [
+      "Pd",
+      "Cu"
+    ],
+    "sources": [
+      "pbx_Pd_Cu_NH3_Gly.png",
+      "pbx_Pd_Cu_NH3_Gly_CN.png"
+    ],
+    "source_modes": [
+      "NH3_Gly",
+      "NH3_Gly_CN"
+    ],
+    "figure_label": "fig:Pd_Cu_Pourbaix_SI",
+    "panel_labels": [
+      "fig:PdCu_Pourbaix_NH3_Gly_SI",
+      "fig:PdCu_Pourbaix_NH3_Gly_CN_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Pd_Cu_NH3_Gly.png}\n        \\label{fig:PdCu_Pourbaix_NH3_Gly_SI}\n       \n    \\end{subfigure}\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Pd_Cu_NH3_Gly_CN.png}\n        \\label{fig:PdCu_Pourbaix_NH3_Gly_CN_SI}\n       \n    \\end{subfigure}\n    \\caption{Pourbaix diagrams of PdCu. (a) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=0M$, (b) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=\\num{1e-4}$M. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Pd_Cu_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": false
+  },
+  {
+    "alloy": "PdNi",
+    "metals": [
+      "Pd",
+      "Ni"
+    ],
+    "sources": [
+      "pbx_Pd_Ni_NH3_Gly.png",
+      "pbx_Pd_Ni_NH3_Gly_CN.png"
+    ],
+    "source_modes": [
+      "NH3_Gly",
+      "NH3_Gly_CN"
+    ],
+    "figure_label": "fig:Pd_Ni_Pourbaix_SI",
+    "panel_labels": [
+      "fig:PdNi_Pourbaix_NH3_Gly_SI",
+      "fig:PdNi_Pourbaix_NH3_Gly_CN_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Pd_Ni_NH3_Gly.png}\n        \\label{fig:PdNi_Pourbaix_NH3_Gly_SI}\n       \n    \\end{subfigure}\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Pd_Ni_NH3_Gly_CN.png}\n        \\label{fig:PdNi_Pourbaix_NH3_Gly_CN_SI}\n       \n    \\end{subfigure}\n    \\caption{Pourbaix diagrams of PdNi. (a) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=0M$, (b) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=\\num{1e-4}$M. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Pd_Ni_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": false
+  },
+  {
+    "alloy": "PdPt",
+    "metals": [
+      "Pd",
+      "Pt"
+    ],
+    "sources": [
+      "pbx_Pd_Pt_NH3_Gly.png",
+      "pbx_Pd_Pt_NH3_Gly_CN.png"
+    ],
+    "source_modes": [
+      "NH3_Gly",
+      "NH3_Gly_CN"
+    ],
+    "figure_label": "fig:Pd_Pt_Pourbaix_SI",
+    "panel_labels": [
+      "fig:PdPt_Pourbaix_NH3_Gly_SI",
+      "fig:PdPt_Pourbaix_NH3_Gly_CN_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Pd_Pt_NH3_Gly.png}\n        \\label{fig:PdPt_Pourbaix_NH3_Gly_SI}\n       \n    \\end{subfigure}\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Pd_Pt_NH3_Gly_CN.png}\n        \\label{fig:PdPt_Pourbaix_NH3_Gly_CN_SI}\n       \n    \\end{subfigure}\n    \\caption{Pourbaix diagrams of PdPt. (a) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=0M$, (b) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=\\num{1e-4}$M. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Pd_Pt_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": false
+  },
+  {
+    "alloy": "AuPd",
+    "metals": [
+      "Au",
+      "Pd"
+    ],
+    "sources": [
+      "pbx_Au_Pd_H2O.png",
+      "pbx_Au_Pd_NH3_Gly_CN.png"
+    ],
+    "source_modes": [
+      "H2O",
+      "NH3_Gly_CN"
+    ],
+    "figure_label": "fig:Au_Pd_Pourbaix_SI",
+    "panel_labels": [
+      "fig:AuPd_Pourbaix_NH3_Gly_SI",
+      "fig:AuPd_Pourbaix_NH3_Gly_CN_SI"
+    ],
+    "original_latex": "\\begin{figure}[!htbp]\n    \\centering\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Au_Pd_H2O.png}\n        \\label{fig:AuPd_Pourbaix_NH3_Gly_SI}\n       \n    \\end{subfigure}\n    \\begin{subfigure}[b]{0.45\\textwidth}\n        \\subcaption{}\n        \\includegraphics[width=\\textwidth]{pbx_Au_Pd_NH3_Gly_CN.png}\n        \\label{fig:AuPd_Pourbaix_NH3_Gly_CN_SI}\n       \n    \\end{subfigure}\n    \\caption{Pourbaix diagrams of AuPd. (a) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=0M$, (b) $\\text{Ion activity}=\\num{1e-4}$, $[\\ce{NH3}]_{initial}= 0.02$M, $[\\text{Gly}]_{initial}=0.1$M,  $[\\ce{CN-}]_{initial}=\\num{1e-4}$M. The black box indicates the experimental condition at applied potential vs RHE = -2 to 2V, pH = 11.5 to 13.5.}\n    \\label{fig:Au_Pd_Pourbaix_SI}\n\\end{figure}",
+    "ambiguous": true
+  }
+]

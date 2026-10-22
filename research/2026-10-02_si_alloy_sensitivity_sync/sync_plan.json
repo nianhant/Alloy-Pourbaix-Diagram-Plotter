@@ -1,0 +1,97 @@
+{
+  "source": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI.tex",
+  "source_sha256": "81f7e639b26999c992ccaae52ea6e3b31e5bde4e35a8566fea48d0124530cf17",
+  "section_destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/alloy_pourbaix_sensitivity_SI.tex",
+  "files": [
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiNi/TiNi_activity_three_levels_1x3_side_colors.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiNi_activity_three_levels_1x3_side_colors.pdf",
+      "sha256": "ee718798723b4991647e2ada866af472ee9d121666eb033b98aea3acf72a319c"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiNi/TiNi_activity_three_levels_1x3_side_colors.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiNi_activity_three_levels_1x3_side_colors.tiff",
+      "sha256": "3e080b48fea494bc7e5cae2c66325ec6a75f23fe835afef9c253143208fce02a"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiNi/TiNi_NH3_three_levels_1x3_side_colors.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiNi_NH3_three_levels_1x3_side_colors.pdf",
+      "sha256": "2ed913eeef873c08ef44741197b32aa84aad88aa3fa011c54534185cf8d4ad60"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiNi/TiNi_NH3_three_levels_1x3_side_colors.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiNi_NH3_three_levels_1x3_side_colors.tiff",
+      "sha256": "17e546aacb65851727ab2f0b744669a5dcb70fec94a52673ca7eede60912d616"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiNi/TiNi_Gly_three_levels_1x3_side_colors.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiNi_Gly_three_levels_1x3_side_colors.pdf",
+      "sha256": "1b62951dee862cfa14a7273301306203bae9977cc563e062433783d81e8ac4a1"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiNi/TiNi_Gly_three_levels_1x3_side_colors.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiNi_Gly_three_levels_1x3_side_colors.tiff",
+      "sha256": "63879ad602cd7699b63da5d9dcb1da3d123c5cd609bd8c6ce17763539e10427a"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiCu/TiCu_activity_three_levels_1x3_side_colors.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiCu_activity_three_levels_1x3_side_colors.pdf",
+      "sha256": "f5295db1e4b8e96c7e31f2062b4bd446c567de7a00c1e0e8040258b95c57e3cb"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiCu/TiCu_activity_three_levels_1x3_side_colors.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiCu_activity_three_levels_1x3_side_colors.tiff",
+      "sha256": "7b0c73bf248ef6fda828d33b3f04cf84b706cbbe12ba7c32f532e9a87dd37761"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiCu/TiCu_NH3_three_levels_1x3_side_colors.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiCu_NH3_three_levels_1x3_side_colors.pdf",
+      "sha256": "b7e1d648d75af8f1df822a2f7d6caecdc6b8e8e892e6bd3d767e4ce704cc344e"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiCu/TiCu_NH3_three_levels_1x3_side_colors.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiCu_NH3_three_levels_1x3_side_colors.tiff",
+      "sha256": "4a5e5e6b0a3f2681fc2a4a54124b3853d3c6727315f514f36c680a599f5c3f10"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiCu/TiCu_Gly_three_levels_1x3_side_colors.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiCu_Gly_three_levels_1x3_side_colors.pdf",
+      "sha256": "9dc525b6771cffc0cfa0064d93042c72d1686631247d363362f6f68206beb686"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/TiCu/TiCu_Gly_three_levels_1x3_side_colors.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/TiCu_Gly_three_levels_1x3_side_colors.tiff",
+      "sha256": "0fb9cfae8bd2b5b3c55565a5da77fa1a93370ada90329b162f2d7a4c958e6153"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/PdAu/PdAu_activity_three_levels_1x3_side_colors.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/PdAu_activity_three_levels_1x3_side_colors.pdf",
+      "sha256": "862ee48c3457a7cda540f5e1845ce05e6a7ae4a517535ffac3ad2c396b78a8e2"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/PdAu/PdAu_activity_three_levels_1x3_side_colors.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/PdAu_activity_three_levels_1x3_side_colors.tiff",
+      "sha256": "0d1d03e75b8583a3c354796ff1bb2f7949040bd0c0328a3276db56f224822902"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/PdAu/PdAu_NH3_three_levels_1x3_side_colors.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/PdAu_NH3_three_levels_1x3_side_colors.pdf",
+      "sha256": "738b762ce11ea36ed0756a046958afa3cc4ccc829c993c1c142b0566c09b4730"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/PdAu/PdAu_NH3_three_levels_1x3_side_colors.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/PdAu_NH3_three_levels_1x3_side_colors.tiff",
+      "sha256": "1abedcee9f2d142a214452778395c156603dd13827fa8aca62308bc4c5e48f00"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/PdAu/PdAu_Gly_three_levels_1x3_side_colors.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/PdAu_Gly_three_levels_1x3_side_colors.pdf",
+      "sha256": "b03f33b7ca21d6e0b0318ae2059ed2fef3f6b50265cb92a4eb53f517725b0896"
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/sensitivity_triptychs_with_cn_sweep/PdAu/PdAu_Gly_three_levels_1x3_side_colors.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/PdAu_Gly_three_levels_1x3_side_colors.tiff",
+      "sha256": "2253a272b6dfb0d7855a9c7296c55a8c57faa6888b09e1c5d41f9347e25a6cc8"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "source": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/pourbaix_figures_SI.tex",
+  "source_sha256": "5a9d116e395ebfde10b2d0326a872c2c8bcc0bd6d1cea4f1919a2b4b2aa22500",
+  "files": [
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiNi_2panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiNi_2panel_side_colors_all_species.pdf",
+      "sha256": "abe7a8b40b0d1ece0c18c315be4647e26bcce915e17e10c89f2a5afa898d5c4f",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiNi_2panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiNi_2panel_side_colors_all_species.tiff",
+      "sha256": "eeaabf259eee2fb5b9bc49df41bcc65fb9f81de2c68c4ac27378d90952aa0b19",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiCu_2panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiCu_2panel_side_colors_all_species.pdf",
+      "sha256": "33b443ec4c34cc8e40bb6e4eb65c766029175ad31895c378323a7c87701dcd29",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiCu_2panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiCu_2panel_side_colors_all_species.tiff",
+      "sha256": "7db995708aab7f70b857cb1653f0ed17d26be24c30f35fafbfa1441bb4f692c5",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiFe_2panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiFe_2panel_side_colors_all_species.pdf",
+      "sha256": "7d3a59e1f4900a851b5526d98a5d8bb481128c5b2c5d88ceee20eff567f97d69",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiFe_2panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiFe_2panel_side_colors_all_species.tiff",
+      "sha256": "70777d7e95370ff7bd32d190abcb21b46639a0834bf4285910ebadecba582b20",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiMg_1panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiMg_1panel_side_colors_all_species.pdf",
+      "sha256": "7d3cf13bef42ac4839975e62dbab5337f55701d3ac4a4ca2b78522372f01468c",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiMg_1panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiMg_1panel_side_colors_all_species.tiff",
+      "sha256": "d1e730d526dbb139edfc58802e1bd083851c68758c8ffa86b85d74816e35e6bc",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiMn_1panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiMn_1panel_side_colors_all_species.pdf",
+      "sha256": "420cacb2194e624b9cd4e7a3c25cef93fce966d275b79ac3d3dc936db9e9d378",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiMn_1panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiMn_1panel_side_colors_all_species.tiff",
+      "sha256": "6b034150fefb65c9ad3f933cbe1b94cec98a4fdb628c70a7805168e7d9ab7c93",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiZn_1panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiZn_1panel_side_colors_all_species.pdf",
+      "sha256": "3799aabe07022dbbb1ecaefd2a489225b0e2147bd7faf4a9e8082f729189a454",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_TiZn_1panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_TiZn_1panel_side_colors_all_species.tiff",
+      "sha256": "9fd3b1139d105f31cf40dfe116dc0f309176e498bc683ff165d134711393ebf2",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_PdAg_2panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_PdAg_2panel_side_colors_all_species.pdf",
+      "sha256": "a8d8c934c6de17f4ac76e7dcd7d7b4b7c56f445abe275426517c13ab0548a7f6",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_PdAg_2panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_PdAg_2panel_side_colors_all_species.tiff",
+      "sha256": "36f38c9674d0b2cbcbfa884bc81a64d46c17c8841798255b5db49dbd2597c194",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_PdCu_2panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_PdCu_2panel_side_colors_all_species.pdf",
+      "sha256": "e06125d055d002e03b3c8a274e9b38dcbb6fab59a8d816f8e180be56388d3bc2",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_PdCu_2panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_PdCu_2panel_side_colors_all_species.tiff",
+      "sha256": "299bf91beee9d3e6d2fb7c571ce5f722a597000783be458ccd57b5c02aa78e88",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_PdNi_2panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_PdNi_2panel_side_colors_all_species.pdf",
+      "sha256": "380b8820d861a02aec4322392d0234490cc1ea093ba0d57b59f69c55be657faa",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_PdNi_2panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_PdNi_2panel_side_colors_all_species.tiff",
+      "sha256": "f771ba71a7165aa902d8af8a1fffa5cff6c2d6467db4e47b42d14be5498e9fa8",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_PdPt_2panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_PdPt_2panel_side_colors_all_species.pdf",
+      "sha256": "3902bfbc5b1027cf562bc0ec27b285ddfe7b6831f0d8136bf1aea33806f12477",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_PdPt_2panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_PdPt_2panel_side_colors_all_species.tiff",
+      "sha256": "1694df2361bb8e1ae310e5641e504774ee9328d1e4834b9cbf95bfdc9968490f",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_AuPd_2panel_side_colors_all_species.pdf",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_AuPd_2panel_side_colors_all_species.pdf",
+      "sha256": "2756074f5a024c2c12adb591240af7a84127e968233fa2a96c09c07be8ae27b5",
+      "destination_exists": false
+    },
+    {
+      "source": "/global/cfs/cdirs/m5419/nianhant_project_storage/stability_paper/Alloy-Pourbaix-Diagram-Plotter/figures/alloy_pourbaix_diagrams/si_full_legends/SI_AuPd_2panel_side_colors_all_species.tiff",
+      "destination": "/global/homes/n/nianhant/data/stability_paper/updated_stability_manuscript/submission/SI_AuPd_2panel_side_colors_all_species.tiff",
+      "sha256": "6b6f8fdbfd84bda9e1ea2c9c52e36ef645d1f6be0348635adedfcf2078aa4b54",
+      "destination_exists": false
+    }
+  ],
+  "labels_preserved": true,
+  "non_alloy_content_preserved": true,
+  "latex_tools": {
+    "pdflatex": null,
+    "latexmk": null,
+    "tectonic": null
+  }
+}

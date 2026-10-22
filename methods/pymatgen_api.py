@@ -1,15 +1,50 @@
 import json
 import os
+import sys
+import types
 from pymatgen.analysis.pourbaix_diagram import PourbaixDiagram, PourbaixPlotter,IonEntry
 from pymatgen.entries.computed_entries import ComputedEntry
 from pymatgen.analysis.phase_diagram import PDEntry, PhaseDiagram
 from mp_api.client import MPRester
 import re
 
-mpr_key = os.getenv("MP_API_KEY")
-if not mpr_key:
-    raise ValueError("Set the MP_API_KEY environment variable before fetching Materials Project data.")
-mpr = MPRester(mpr_key)
+
+def install_pymatgen_entries_compat_alias():
+    """Support MP data serialized with the older pymatgen.core.entries path."""
+    try:
+        import pymatgen.entries.computed_entries as computed_entries
+    except ModuleNotFoundError:
+        return
+
+    entries_module = types.ModuleType("pymatgen.core.entries")
+    entries_module.computed_entries = computed_entries
+    sys.modules.setdefault("pymatgen.core.entries", entries_module)
+    sys.modules.setdefault("pymatgen.core.entries.computed_entries", computed_entries)
+
+    try:
+        import pymatgen.entries.compatibility as compatibility
+    except ModuleNotFoundError:
+        return
+
+    sys.modules.setdefault("pymatgen.analysis.compatibility", compatibility)
+
+    try:
+        from emmet.core.vasp.calculation import PotcarSpec
+    except ModuleNotFoundError:
+        return
+
+    if not hasattr(PotcarSpec, "get"):
+        PotcarSpec.get = lambda self, key, default=None: self.model_dump().get(key, default)
+
+
+install_pymatgen_entries_compat_alias()
+
+
+def get_mpr():
+    mpr_key = os.getenv("MP_API_KEY") or os.getenv("MAPI_KEY")
+    if not mpr_key:
+        raise ValueError("Set the MP_API_KEY environment variable before fetching Materials Project data.")
+    return MPRester(mpr_key, use_document_model=False)
 
 
 def save_as_json(data, data_dir, filename):
@@ -22,6 +57,7 @@ def save_as_json(data, data_dir, filename):
 def get_alloy_ion_formation_energy(data_dir, metal_1, metal_2):
     ion_formation_eng = {}
     
+    mpr = get_mpr()
     pourbaix_entries = mpr.get_pourbaix_entries([metal_1, metal_2])
     for entry in pourbaix_entries:
         formula = entry.name
@@ -42,6 +78,7 @@ def get_alloy_ion_formation_energy(data_dir, metal_1, metal_2):
 def get_alloy_solid_formation_energy(data_dir, metal_1, metal_2, dimensionally_stable = False):
     # returns per metal formation energy, not total
     solid_formation_eng = {}    
+    mpr = get_mpr()
     pourbaix_entries = mpr.get_pourbaix_entries([metal_1, metal_2])
     solid_entries = [entry for entry in pourbaix_entries if entry.phase_type == "Solid"]
     

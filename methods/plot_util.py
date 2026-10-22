@@ -1,33 +1,87 @@
-import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
+import numpy as np
 
-def generate_legends(ax, all_species_tuples_global, species_colors, plot_accessories, pH_exp_range, V_exp_range):
-    solid_handles = [Line2D([], [], linestyle="None", label="Solid Species")]
-    aqueous_handles = [Line2D([], [], linestyle="None", label="Aqueous Species")]
 
-    for species in all_species_tuples_global:
-        label = plot_accessories.format_species_combo(species)
-        handle = Line2D([0], [0], marker='o', color='w', markerfacecolor=species_colors[species], markersize=8, label=label)
-        (solid_handles if '(aq)' not in label else aqueous_handles).append(handle)
+def categorized_legend_entries(
+    species_grid, potentials, species_colors, plot_accessories, ph_values=None,
+    include_aqueous=False,
+):
+    """Order selected regions by family, then descending mean grid potential.
 
-    max_len = max(len(solid_handles), len(aqueous_handles))
-    solid_handles.extend([Line2D([], [], linestyle="None", label="")] * (max_len - len(solid_handles)))
-    aqueous_handles.extend([Line2D([], [], linestyle="None", label="")] * (max_len - len(aqueous_handles)))
+    Disconnected parts of the same region contribute to one area-weighted
+    centroid. Simple aqueous-ion regions are omitted unless include_aqueous.
+    If ph_values is supplied, append the (pH, potential) centroid to each entry.
+    """
+    ranks = {
+        "metal_oxide": 0, "metal_oxyhydroxide": 0,
+        "metal_ligand_complex": 1, "metal": 2, "metal_hydride": 2,
+    }
+    if include_aqueous:
+        ranks['aqueous_metal_ion'] = 3
+    records = []
+    for index in np.unique(species_grid.min_indices):
+        combo = species_grid.format_species_tuple(species_grid.species_list[index])
+        category = plot_accessories.classify_combo(combo)
+        if category not in ranks:
+            continue
+        rows, columns = np.nonzero(species_grid.min_indices == index)
+        centroid = float(np.mean(potentials[rows]))
+        ph_centroid = float(np.mean(ph_values[columns])) if ph_values is not None else None
+        records.append((ranks[category], -centroid, combo, ph_centroid))
+    records.sort()
+    return [
+        (plot_accessories.format_species_combo(combo), species_colors[combo])
+        + (((ph_centroid, -negative_height),) if ph_values is not None else ())
+        for _, negative_height, combo, ph_centroid in records
+    ]
 
-    accessory_handles = [
-            Line2D([0], [0], color="g", linestyle="-", linewidth=1, label=f'Exp condition\nV vs RHE={V_exp_range[0]}-{V_exp_range[1]}\npH={pH_exp_range[0]}-{pH_exp_range[1]}'),
-            Line2D([0], [0], color="b", linestyle="--", linewidth=1, label=r'H$_2$O Reduction'),
-            Line2D([0], [0], color="r", linestyle="--", linewidth=1, label=r'H$_2$O Oxidation')
-        ]
-    accessory_legend = ax.legend(handles=accessory_handles, loc="upper right", frameon=True)
+
+def solid_legend_entries(all_species_tuples, species_colors, plot_accessories):
+    """Return deterministic ``(label, color)`` entries for all-solid regions."""
+    solid_species = [
+        species
+        for species in all_species_tuples
+        if all(item.rsplit("_", 2)[1] == "solid" for item in species)
+    ]
+    solid_species.sort(key=plot_accessories.format_species_combo)
+    return [
+        (plot_accessories.format_species_combo(species), species_colors[species])
+        for species in solid_species
+    ]
+
+
+def solid_legend_handles(all_species_tuples, species_colors, plot_accessories):
+    """Return deterministic fill swatches for stable all-solid regions."""
+    return [
+        Patch(
+            facecolor=color,
+            edgecolor="0.25",
+            linewidth=0.4,
+            label=label,
+        )
+        for label, color in solid_legend_entries(
+            all_species_tuples, species_colors, plot_accessories
+        )
+    ]
+
+
+def generate_legends(
+    ax,
+    all_species_tuples_global,
+    species_colors,
+    plot_accessories,
+    pH_exp_range,
+    V_exp_range,
+):
+    """Add a compact legend for solid stability regions only."""
+    solid_handles = solid_legend_handles(
+        all_species_tuples_global, species_colors, plot_accessories
+    )
 
     combined_legend = ax.legend(
-        solid_handles + aqueous_handles,
-        [h.get_label() for h in solid_handles + aqueous_handles],
-        loc="center left", frameon=True, bbox_to_anchor=(1.01, 0.5), ncol=2,
-        columnspacing=1.0, handletextpad=1.0
+        handles=solid_handles,
+        title="Solid species",
+        loc="center left", frameon=True, bbox_to_anchor=(1.01, 0.5),
+        handlelength=1.0, handletextpad=0.5,
     )
-    accessory_legend.set_in_layout(False)
-    combined_legend.set_in_layout(False)
-    ax.add_artist(accessory_legend)
-    return accessory_legend, combined_legend
+    return (combined_legend,)
